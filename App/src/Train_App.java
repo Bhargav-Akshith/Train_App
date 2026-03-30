@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * ============================================================
  * MAIN CLASS – UseCase1TrainConsistMgmt
@@ -27,23 +30,23 @@ public class Train_App {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
 
-        List<String> consist = new ArrayList<>();
+        Set<String> bogieIds = new HashSet<>();
 
-        consist.add("Sleeper");
-        consist.add("AC Chair");
-        consist.add("First Class");
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG103");
 
-        System.out.println("Train consist initialized");
-        System.out.println("Current Bogies: " + consist);
-        System.out.println("Total bogie count: " + consist.size());
+        System.out.println("Initial Bogie IDs: " + bogieIds);
 
-        consist.remove("AC Chair");
-        System.out.println("\nAfter removing AC Chair:");
-        System.out.println("Updated Bogies: " + consist);
+        System.out.println("\nAttempting to add duplicate ID: BG101...");
+        boolean isAdded = bogieIds.add("BG101");
 
-        boolean hasSleeper = consist.contains("Sleeper");
-        System.out.println("\nIs Sleeper bogie present? " + hasSleeper);
+        if (!isAdded) {
+            System.out.println("Duplicate ID BG101 rejected!");
+        }
 
-        System.out.println("Final bogie count: " + consist.size());
+        System.out.println("\nFinal Unique Bogie IDs in System:");
+        System.out.println(bogieIds);
+        System.out.println("Total Unique Count: " + bogieIds.size());
     }
-}
+}import java.util.*;
