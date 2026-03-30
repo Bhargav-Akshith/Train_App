@@ -26,28 +26,44 @@ import java.util.List;
  */
 import java.util.*;
 
+class Bogie {
+    String name;
+    int capacity;
+
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Bogie: " + name + " | Capacity: " + capacity + " seats";
+    }
+}
+
 public class Train_App {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
 
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        List<Bogie> passengerBogies = new ArrayList<>();
 
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 56);
-        bogieCapacity.put("First Class", 24);
+        passengerBogies.add(new Bogie("Sleeper", 72));
+        passengerBogies.add(new Bogie("AC Chair", 56));
+        passengerBogies.add(new Bogie("First Class", 24));
 
-        System.out.println("Bogie capacities mapped successfully.\n");
+        System.out.println("Initial Bogie List (Unsorted):");
+        passengerBogies.forEach(System.out::println);
 
-        System.out.println("Bogie Capacity Details:");
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println("Bogie Type: " + entry.getKey() + " | Capacity: " + entry.getValue() + " seats");
+        passengerBogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+        System.out.println("\nSorted Bogies by Capacity (Ascending):");
+        for (Bogie b : passengerBogies) {
+            System.out.println(b);
         }
 
-        String searchBogie = "Sleeper";
-        if (bogieCapacity.containsKey(searchBogie)) {
-            System.out.println("\nRetrieving capacity for " + searchBogie + ": " + bogieCapacity.get(searchBogie) + " seats");
-        }
+        passengerBogies.sort((b1, b2) -> b2.capacity - b1.capacity);
 
-        System.out.println("\nTotal bogie types tracked: " + bogieCapacity.size());
+        System.out.println("\nSorted Bogies by Capacity (Descending):");
+        passengerBogies.forEach(System.out::println);
     }
 }
