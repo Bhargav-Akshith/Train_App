@@ -30,24 +30,24 @@ public class Train_App {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
 
-        Set<String> consist = new LinkedHashSet<>();
+        Map<String, Integer> bogieCapacity = new HashMap<>();
 
-        consist.add("Engine");
-        consist.add("Sleeper");
-        consist.add("Cargo");
-        consist.add("Guard");
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 56);
+        bogieCapacity.put("First Class", 24);
 
-        System.out.println("Initial Train Formation: " + consist);
+        System.out.println("Bogie capacities mapped successfully.\n");
 
-        System.out.println("\nAttempting to re-attach duplicate: Sleeper...");
-        boolean isAdded = consist.add("Sleeper");
-
-        if (!isAdded) {
-            System.out.println("Duplicate bogie 'Sleeper' rejected by system!");
+        System.out.println("Bogie Capacity Details:");
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println("Bogie Type: " + entry.getKey() + " | Capacity: " + entry.getValue() + " seats");
         }
 
-        System.out.println("\nFinal Ordered Train Consist (Unique):");
-        System.out.println(consist);
-        System.out.println("Total unique bogies attached: " + consist.size());
+        String searchBogie = "Sleeper";
+        if (bogieCapacity.containsKey(searchBogie)) {
+            System.out.println("\nRetrieving capacity for " + searchBogie + ": " + bogieCapacity.get(searchBogie) + " seats");
+        }
+
+        System.out.println("\nTotal bogie types tracked: " + bogieCapacity.size());
     }
 }
