@@ -30,26 +30,24 @@ public class Train_App {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
 
-        LinkedList<String> consist = new LinkedList<>();
+        Set<String> consist = new LinkedHashSet<>();
 
         consist.add("Engine");
         consist.add("Sleeper");
-        consist.add("AC");
         consist.add("Cargo");
         consist.add("Guard");
 
-        System.out.println("Initial Train Consist: " + consist);
+        System.out.println("Initial Train Formation: " + consist);
 
-        consist.add(2, "Pantry Car");
-        System.out.println("After adding Pantry Car at position 2: " + consist);
+        System.out.println("\nAttempting to re-attach duplicate: Sleeper...");
+        boolean isAdded = consist.add("Sleeper");
 
-        String removedFirst = consist.removeFirst();
-        String removedLast = consist.removeLast();
+        if (!isAdded) {
+            System.out.println("Duplicate bogie 'Sleeper' rejected by system!");
+        }
 
-        System.out.println("Detached: " + removedFirst + " and " + removedLast);
-
-        System.out.println("\nFinal Ordered Train Consist:");
+        System.out.println("\nFinal Ordered Train Consist (Unique):");
         System.out.println(consist);
-        System.out.println("Current bogie count: " + consist.size());
+        System.out.println("Total unique bogies attached: " + consist.size());
     }
 }
