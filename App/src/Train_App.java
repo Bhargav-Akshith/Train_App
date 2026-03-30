@@ -26,8 +26,24 @@ import java.util.*;
 public class Train_App {
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
+
         List<String> consist = new ArrayList<>();
+
+        consist.add("Sleeper");
+        consist.add("AC Chair");
+        consist.add("First Class");
+
         System.out.println("Train consist initialized");
-        System.out.println("Initial bogie count: " + consist.size());
+        System.out.println("Current Bogies: " + consist);
+        System.out.println("Total bogie count: " + consist.size());
+
+        consist.remove("AC Chair");
+        System.out.println("\nAfter removing AC Chair:");
+        System.out.println("Updated Bogies: " + consist);
+
+        boolean hasSleeper = consist.contains("Sleeper");
+        System.out.println("\nIs Sleeper bogie present? " + hasSleeper);
+
+        System.out.println("Final bogie count: " + consist.size());
     }
 }
