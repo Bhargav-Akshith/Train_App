@@ -35,13 +35,17 @@ class Bogie {
         this.capacity = capacity;
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return type + " - Capacity: " + capacity;
     }
 }
 
-public class UseCase8FilterPassengerBogies {
+public class UseCase9GroupBogies {
     public static void main(String[] args) {
         List<Bogie> bogies = new ArrayList<>();
 
@@ -51,11 +55,12 @@ public class UseCase8FilterPassengerBogies {
         bogies.add(new Bogie("Sleeper", 80));
         bogies.add(new Bogie("AC Chair", 55));
 
-        List<Bogie> filteredBogies = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(Bogie::getType));
 
-        System.out.println("Filtered Bogies:");
-        filteredBogies.forEach(System.out::println);
+        groupedBogies.forEach((type, list) -> {
+            System.out.println(type + ":");
+            list.forEach(System.out::println);
+        });
     }
 }
