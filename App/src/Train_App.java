@@ -26,46 +26,22 @@ import java.util.List;
  */
 import java.util.*;
 
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
-
-class Bogie {
-    String type;
-    String cargo;
-
-    Bogie(String type) {
-        this.type = type;
-    }
-
-    public void assignCargo(String cargo) {
-        try {
-            if (type.equals("Rectangular") && cargo.equals("Petroleum")) {
-                throw new CargoSafetyException("Unsafe cargo assignment");
-            }
-            this.cargo = cargo;
-            System.out.println(type + " bogie assigned cargo: " + cargo);
-        } catch (CargoSafetyException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            System.out.println("Assignment attempt completed");
-        }
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-}
-
 public class Train_App {
     public static void main(String[] args) {
-        Bogie b1 = new Bogie("Cylindrical");
-        Bogie b2 = new Bogie("Rectangular");
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        b1.assignCargo("Petroleum");
-        b2.assignCargo("Petroleum");
-        b2.assignCargo("Coal");
+        for (int i = 0; i < capacities.length - 1; i++) {
+            for (int j = 0; j < capacities.length - i - 1; j++) {
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
+
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
     }
 }
