@@ -28,10 +28,18 @@ import java.util.*;
 
 public class Train_App {
     public static void main(String[] args) {
-        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String searchKey = "BG309";
 
-        Arrays.sort(bogieNames);
+        boolean found = false;
 
-        System.out.println(Arrays.toString(bogieNames));
+        for (String id : bogieIds) {
+            if (id.equals(searchKey)) {
+                found = true;
+                break;
+            }
+        }
+
+        System.out.println("Bogie Found: " + found);
     }
 }
