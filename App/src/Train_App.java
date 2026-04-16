@@ -28,34 +28,44 @@ import java.util.*;
 
 class Bogie {
     String type;
-    String cargo;
+    int capacity;
 
-    Bogie(String type, String cargo) {
+    Bogie(String type, int capacity) {
         this.type = type;
-        this.cargo = cargo;
+        this.capacity = capacity;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public String getCargo() {
-        return cargo;
+    public int getCapacity() {
+        return capacity;
     }
 }
 
-public class Train_App {
+public class Train_App{
     public static void main(String[] args) {
         List<Bogie> bogies = new ArrayList<>();
 
-        bogies.add(new Bogie("Cylindrical", "Petroleum"));
-        bogies.add(new Bogie("Open", "Coal"));
-        bogies.add(new Bogie("Box", "Grain"));
-        bogies.add(new Bogie("Cylindrical", "Petroleum"));
+        for (int i = 0; i < 100000; i++) {
+            bogies.add(new Bogie("Sleeper", 50 + (i % 50)));
+        }
 
-        boolean isSafe = bogies.stream()
-                .allMatch(b -> !b.getType().equals("Cylindrical") || b.getCargo().equals("Petroleum"));
+        long startLoop = System.nanoTime();
+        List<Bogie> loopResult = new ArrayList<>();
+        for (Bogie b : bogies) {
+            if (b.getCapacity() > 60) {
+                loopResult.add(b);
+            }
+        }
+        long endLoop = System.nanoTime();
 
-        System.out.println("Train Safety Compliance: " + isSafe);
+        long startStream = System.nanoTime();
+        List<Bogie> streamResult = bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+        long endStream = System.nanoTime();
+
+        System.out.println("Loop Time: " + (endLoop - startLoop));
+        System.out.println("Stream Time: " + (endStream - startStream));
+        System.out.println("Loop Result Size: " + loopResult.size());
+        System.out.println("Stream Result Size: " + streamResult.size());
     }
 }
