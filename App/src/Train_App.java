@@ -26,33 +26,18 @@ import java.util.List;
  */
 import java.util.*;
 
-class Bogie {
-    String type;
-    int capacity;
+public class UseCase11RegexValidation {
+    public static void main(String[] args) {
+        String trainId = "TRN-1234";
+        String cargoCode = "PET-AB";
 
-    Bogie(String type, int capacity) {
-        this.type = type;
-        this.capacity = capacity;
-    }
+        Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
 
-    public int getCapacity() {
-        return capacity;
+        boolean isTrainValid = trainPattern.matcher(trainId).matches();
+        boolean isCargoValid = cargoPattern.matcher(cargoCode).matches();
+
+        System.out.println("Train ID Valid: " + isTrainValid);
+        System.out.println("Cargo Code Valid: " + isCargoValid);
     }
 }
-
-public class UseCase10TotalSeats {
-    public static void main(String[] args) {
-        List<Bogie> bogies = new ArrayList<>();
-
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
-        bogies.add(new Bogie("Sleeper", 80));
-        bogies.add(new Bogie("AC Chair", 55));
-
-        int totalSeats = bogies.stream()
-                .map(b -> b.getCapacity())
-                .reduce(0, Integer::sum);
-
-        System.out.println("Total Seating Capacity: " + totalSeats);
-    }
