@@ -28,26 +28,19 @@ import java.util.*;
 
 public class Train_App {
     public static void main(String[] args) {
-        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
-        String key = "BG309";
+        String[] bogieIds = {"BG101", "BG205", "BG309"};
+        String key = "BG205";
 
-        Arrays.sort(bogieIds);
+        if (bogieIds.length == 0) {
+            throw new IllegalStateException("No bogies available for search");
+        }
 
         boolean found = false;
-        int low = 0;
-        int high = bogieIds.length - 1;
 
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int cmp = key.compareTo(bogieIds[mid]);
-
-            if (cmp == 0) {
+        for (String id : bogieIds) {
+            if (id.equals(key)) {
                 found = true;
                 break;
-            } else if (cmp < 0) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
             }
         }
 
