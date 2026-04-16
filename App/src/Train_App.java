@@ -26,18 +26,36 @@ import java.util.List;
  */
 import java.util.*;
 
-public class UseCase11RegexValidation {
+class Bogie {
+    String type;
+    String cargo;
+
+    Bogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+}
+
+public class Train_App {
     public static void main(String[] args) {
-        String trainId = "TRN-1234";
-        String cargoCode = "PET-AB";
+        List<Bogie> bogies = new ArrayList<>();
 
-        Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
-        Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
+        bogies.add(new Bogie("Cylindrical", "Petroleum"));
+        bogies.add(new Bogie("Open", "Coal"));
+        bogies.add(new Bogie("Box", "Grain"));
+        bogies.add(new Bogie("Cylindrical", "Petroleum"));
 
-        boolean isTrainValid = trainPattern.matcher(trainId).matches();
-        boolean isCargoValid = cargoPattern.matcher(cargoCode).matches();
+        boolean isSafe = bogies.stream()
+                .allMatch(b -> !b.getType().equals("Cylindrical") || b.getCargo().equals("Petroleum"));
 
-        System.out.println("Train ID Valid: " + isTrainValid);
-        System.out.println("Cargo Code Valid: " + isCargoValid);
+        System.out.println("Train Safety Compliance: " + isSafe);
     }
 }
