@@ -28,15 +28,26 @@ import java.util.*;
 
 public class Train_App {
     public static void main(String[] args) {
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        String searchKey = "BG309";
+        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        String key = "BG309";
+
+        Arrays.sort(bogieIds);
 
         boolean found = false;
+        int low = 0;
+        int high = bogieIds.length - 1;
 
-        for (String id : bogieIds) {
-            if (id.equals(searchKey)) {
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int cmp = key.compareTo(bogieIds[mid]);
+
+            if (cmp == 0) {
                 found = true;
                 break;
+            } else if (cmp < 0) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
 
