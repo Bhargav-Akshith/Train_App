@@ -26,45 +26,46 @@ import java.util.List;
  */
 import java.util.*;
 
-class InvalidCapacityException extends Exception {
-    public InvalidCapacityException(String message) {
+class CargoSafetyException extends RuntimeException {
+    public CargoSafetyException(String message) {
         super(message);
     }
 }
 
 class Bogie {
     String type;
-    int capacity;
+    String cargo;
 
-    Bogie(String type, int capacity) throws InvalidCapacityException {
-        if (capacity <= 0) {
-            throw new InvalidCapacityException("Capacity must be greater than zero");
-        }
+    Bogie(String type) {
         this.type = type;
-        this.capacity = capacity;
     }
 
-    public String getType() {
-        return type;
+    public void assignCargo(String cargo) {
+        try {
+            if (type.equals("Rectangular") && cargo.equals("Petroleum")) {
+                throw new CargoSafetyException("Unsafe cargo assignment");
+            }
+            this.cargo = cargo;
+            System.out.println(type + " bogie assigned cargo: " + cargo);
+        } catch (CargoSafetyException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Assignment attempt completed");
+        }
     }
 
-    public int getCapacity() {
-        return capacity;
+    public String getCargo() {
+        return cargo;
     }
 }
 
 public class Train_App {
     public static void main(String[] args) {
-        try {
-            Bogie b1 = new Bogie("Sleeper", 72);
-            Bogie b2 = new Bogie("AC Chair", 60);
-            Bogie b3 = new Bogie("First Class", -10);
+        Bogie b1 = new Bogie("Cylindrical");
+        Bogie b2 = new Bogie("Rectangular");
 
-            System.out.println(b1.getType() + " " + b1.getCapacity());
-            System.out.println(b2.getType() + " " + b2.getCapacity());
-            System.out.println(b3.getType() + " " + b3.getCapacity());
-        } catch (InvalidCapacityException e) {
-            System.out.println(e.getMessage());
-        }
+        b1.assignCargo("Petroleum");
+        b2.assignCargo("Petroleum");
+        b2.assignCargo("Coal");
     }
 }
