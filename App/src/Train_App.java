@@ -27,43 +27,35 @@ import java.util.List;
 import java.util.*;
 
 class Bogie {
-    String name;
+    String type;
     int capacity;
 
-    Bogie(String name, int capacity) {
-        this.name = name;
+    Bogie(String type, int capacity) {
+        this.type = type;
         this.capacity = capacity;
     }
 
     @Override
     public String toString() {
-        return "Bogie: " + name + " | Capacity: " + capacity + " seats";
+        return type + " - Capacity: " + capacity;
     }
 }
 
-public class Train_App {
+public class UseCase8FilterPassengerBogies {
     public static void main(String[] args) {
-        System.out.println("=== Train Consist Management App ===");
+        List<Bogie> bogies = new ArrayList<>();
 
-        List<Bogie> passengerBogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("First Class", 40));
+        bogies.add(new Bogie("Sleeper", 80));
+        bogies.add(new Bogie("AC Chair", 55));
 
-        passengerBogies.add(new Bogie("Sleeper", 72));
-        passengerBogies.add(new Bogie("AC Chair", 56));
-        passengerBogies.add(new Bogie("First Class", 24));
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        System.out.println("Initial Bogie List (Unsorted):");
-        passengerBogies.forEach(System.out::println);
-
-        passengerBogies.sort(Comparator.comparingInt(b -> b.capacity));
-
-        System.out.println("\nSorted Bogies by Capacity (Ascending):");
-        for (Bogie b : passengerBogies) {
-            System.out.println(b);
-        }
-
-        passengerBogies.sort((b1, b2) -> b2.capacity - b1.capacity);
-
-        System.out.println("\nSorted Bogies by Capacity (Descending):");
-        passengerBogies.forEach(System.out::println);
+        System.out.println("Filtered Bogies:");
+        filteredBogies.forEach(System.out::println);
     }
 }
